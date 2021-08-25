@@ -10,7 +10,7 @@ def main():
 
     csv_file = str(sys.argv[1])
     max_rows = int(sys.argv[2])
-    has_headers = int(sys.argv[3]) if len(sys.argv) <= 4 else 1
+    has_headers = int(sys.argv[3]) if len(sys.argv) >= 4 else 1
 
     split(csv_file, max_rows, has_headers)
 
