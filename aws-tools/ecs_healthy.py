@@ -18,16 +18,16 @@ def main():
 
     while True:
         try:
+            healthy = True
+
+            cluster_services = fetch_cluster_and_services(
+                client, cluster_filter, service_filter)
+
             print('-' * 80)
             print(f'  AWS profile     :  {profile_name}')
             print(f'  Cluster filter  :  {cluster_filter}')
             print(f'  Service filter  :  {service_filter}')
             print('-' * 80)
-
-            healthy = True
-
-            cluster_services = fetch_cluster_and_services(
-                client, cluster_filter, service_filter)
 
             for cluster, services in cluster_services.items():
                 result = check_services(client, cluster, services)
@@ -44,9 +44,8 @@ def main():
                 print('❌ Not healthy!')
                 print('')
 
-                for i in reversed(range(5)):
-                    print(f'Retrying in {i+1}s...')
-                    time.sleep(1)
+                print(f'Retrying in 5 seconds...')
+                time.sleep(5)
         except KeyboardInterrupt:
             print('')
             print('Bye!')
